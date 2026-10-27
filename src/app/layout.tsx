@@ -18,10 +18,17 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+// Used for absolute share-preview URLs. On Vercel the production domain is provided automatically.
+function siteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile();
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(siteUrl()),
     title: {
       default: `${profile.name} — Portfolio`,
       template: `%s · ${profile.name}`,
