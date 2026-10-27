@@ -1,0 +1,32 @@
+title: "Repo Nyeleneh tapi Kepake"
+category: design
+date: 2026-10-27
+featured: false
+source: "https://www.tiktok.com/@kreativa.dev/photo/7701212706849787143"
+accent: blue
+ratio: "4/5"
+cover: /posts/konten-60/cover.jpg
+slides:
+  - image: /posts/konten-60/slide-1.jpg
+    alt: "Repo nyeleneh tapi kepake"
+  - image: /posts/konten-60/slide-2.jpg
+    alt: "3d-model-anything: scan kamar pakai iPhone jadi model 3D"
+  - image: /posts/konten-60/slide-3.jpg
+    alt: "orca: banyak coding agent jalan barengan dalam satu layar"
+  - image: /posts/konten-60/slide-4.jpg
+    alt: "hatchzip: ekstrak arsip raksasa tanpa disk dobel"
+  - image: /posts/konten-60/slide-5.jpg
+    alt: "Strata: model Qwen jalan lokal, API di localhost"
+  - image: /posts/konten-60/slide-6.jpg
+    alt: "word-atlas: hafal kosakata IELTS gratis tanpa login"
+  - image: /posts/konten-60/slide-7.jpg
+    alt: "Ada yang lebih gacor? Tulis di komen"
+caption: "Scan kamar jadi model 3D pakai iPhone, sampai ekstrak arsip 180 GB tanpa butuh disk dobel. Simpen dulu, terus komen: dari lima ini, yang mana bakal dicoba duluan?\n3d-model-anything, orca, hatchzip, Strata, word-atlas"
+tags:
+  - "fyp"
+  - "programmerindonesia"
+  - "opensource"
+  - "githubrepo"
+  - "devtools"
+  - "ngoprek"
+stack: []

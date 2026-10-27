@@ -1,0 +1,28 @@
+title: "Repo Gacor: Spotify & AI Skill"
+category: design
+date: 2026-09-04
+featured: false
+source: "https://www.tiktok.com/@kreativa.dev/photo/7681612672982437140"
+accent: pink
+ratio: "4/5"
+cover: /posts/konten-3/cover.jpg
+slides:
+  - image: /posts/konten-3/slide-1.jpg
+    alt: "Rekomendasi github repository gacor"
+  - image: /posts/konten-3/slide-2.jpg
+    alt: "SpotiFLAC: tarik lagu Spotify jadi FLAC"
+  - image: /posts/konten-3/slide-3.jpg
+    alt: "spicetify/cli: custom total tampilan Spotify"
+  - image: /posts/konten-3/slide-4.jpg
+    alt: "ui-ux-pro-max-skill: design system lengkap buat AI coding agent"
+  - image: /posts/konten-3/slide-5.jpg
+    alt: "taste-skill: stop AI bikin UI generik"
+  - image: /posts/konten-3/slide-6.jpg
+    alt: "Ada yang lebih gacor? Tulis di komen"
+caption: "Empat repo GitHub buat yang hidupnya nempel sama Spotify dan AI coding: dari tarik lagu jadi FLAC sampai skill biar UI buatan AI nggak generik.\nSpotiFLAC, spicetify, ui-ux-pro-max-skill, taste-skill"
+tags:
+  - "github"
+  - "opensource"
+  - "spotify"
+  - "ai"
+stack: []

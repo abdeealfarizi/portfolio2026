@@ -1,0 +1,34 @@
+title: "Repo Random Gacor"
+category: design
+date: 2026-10-11
+featured: false
+source: "https://www.tiktok.com/@kreativa.dev/photo/7695546564260924692"
+accent: pink
+ratio: "4/5"
+cover: /posts/konten-45/cover.jpg
+slides:
+  - image: /posts/konten-45/slide-1.jpg
+    alt: "Github random gacor"
+  - image: /posts/konten-45/slide-2.jpg
+    alt: "halcyon-video: Ubah Jellyfin jadi toko rental video 3D"
+  - image: /posts/konten-45/slide-3.jpg
+    alt: "scroll-world: Skill Claude bikin landing page 3D"
+  - image: /posts/konten-45/slide-4.jpg
+    alt: "mesh-avatar-studio: Satu gambar jadi avatar 2D animasi"
+  - image: /posts/konten-45/slide-5.jpg
+    alt: "spiderfoot: Scan OSINT otomatis buat domain"
+  - image: /posts/konten-45/slide-6.jpg
+    alt: "logo-design-skill: Skill Claude desain logo profesional"
+  - image: /posts/konten-45/slide-7.jpg
+    alt: "Ada yang lebih gacor? Tulis di komen"
+caption: "Simpan dulu sebelum hilang dari scroll. Repo paling niat nongol di slide terakhir.\nhalcyon-video, scroll-world, mesh-avatar-studio, spiderfoot, logo-design-skill"
+tags:
+  - "github"
+  - "opensource"
+  - "developer"
+  - "coding"
+  - "programmer"
+  - "teknologi"
+  - "devtools"
+  - "indonesia"
+stack: []

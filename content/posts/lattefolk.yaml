@@ -1,0 +1,30 @@
+title: "Lattefolk"
+category: design
+date: 2025-05-08
+featured: true
+accent: orange
+ratio: "1/1"
+cover: /posts/lattefolk/cover.jpg
+slides:
+  - image: /posts/lattefolk/slide-1.jpg
+    alt: "Logo Lattefolk cokelat di atas latar putih"
+  - image: /posts/lattefolk/slide-2.jpg
+    alt: "Logo Lattefolk putih di atas latar cokelat"
+  - image: /posts/lattefolk/slide-6.jpg
+    alt: "Tagline Sip, Share, Stay Folkin. di latar putih"
+  - image: /posts/lattefolk/slide-7.jpg
+    alt: "Tagline Sip, Share, Stay Folkin. di latar cokelat"
+  - image: /posts/lattefolk/slide-3.jpg
+    alt: "Lattefolk Signature dalam cup plastik"
+  - image: /posts/lattefolk/slide-4.jpg
+    alt: "Kemasan biji kopi Beansfolk"
+  - image: /posts/lattefolk/slide-5.jpg
+    alt: "Tumbler Folk's Tumbler"
+  - image: /posts/lattefolk/slide-8.jpg
+    alt: "Kaos karyawan Lattefolk tampak depan dan belakang"
+caption: "Identitas visual Lattefolk: logo, tagline \"Sip, Share, Stay Folkin.\", lalu penerapannya di cup, kemasan biji kopi, tumbler, sampai kaos karyawan."
+tags:
+  - "branding"
+  - "logo"
+  - "coffee"
+stack: []

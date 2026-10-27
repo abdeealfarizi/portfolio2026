@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abdee Alfarizi — portfolio
 
-## Getting Started
+Portfolio pribadi graphic designer & part-time coder (design termasuk carousel TikTok, fotografi, code) berbentuk feed sosial media: setiap karya adalah satu post, setiap post punya beberapa slide. Dibangun dengan Next.js 16, Tailwind v4, Motion, dan Keystatic. Tidak ada database: semua konten disimpan sebagai file di repo.
 
-First, run the development server:
+## Menjalankan
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `http://localhost:3000`: beranda (profil + grid)
+- `/feed`: feed vertikal (`/feed?post=<slug>&cat=design` untuk deep link)
+- `/p/<slug>`: halaman satu post (untuk dibagikan)
+- `/keystatic`: panel admin untuk menambah atau mengedit post
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Menambah post dari folder `bahan/` (cara cepat)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Taruh file mentah di `bahan/`, lalu jalankan:
 
-## Learn More
+```bash
+npm run import
+```
 
-To learn more about Next.js, take a look at the following resources:
+| Folder di `bahan/` | Jadi kategori | Catatan |
+|---|---|---|
+| `konten*` (mis. `konten-26`, `Konten 7`) | Design | 1 folder = 1 post, slide diurutkan berdasarkan nama file |
+| `fotografi/` | Fotografi | 1 foto = 1 post. Subfolder di dalamnya = 1 album |
+| `code*` | Code | |
+| folder lain (mis. `lattefolk design`) | Design | |
+| `profile.png` | Foto profil | |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Script ini mengompres gambar (PNG 15MB jadi sekitar 300KB), menebak rasio dan warna aksen, membaca `caption.txt` (baris `#tag` jadi tags) dan `konten.json` (jadi alt text). Post yang sudah ada **tidak ditimpa**, jadi editanmu aman. Pakai `npm run import -- --force` kalau ingin mengulang semuanya.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Supaya views dan link TikTok ikut ter-import, tambahkan `info.json` di folder konten:
 
-## Deploy on Vercel
+```json
+{ "views": 125000, "source": "https://www.tiktok.com/@kreativa.dev/photo/123", "featured": true }
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Field lain yang bisa dipakai: `title`, `caption`, `date`, `tags`, `stack`, `accent`, dan `ratio`. Untuk satu foto, pakai `<nama-foto>.json` di sebelah fotonya. Post diurutkan: yang di-pin dulu, lalu views terbanyak, lalu yang terbaru.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Folder `bahan/` tidak ikut di-commit (ada di `.gitignore`). Yang masuk repo hanya versi teroptimasi di `public/posts/`.
+
+## Menambah atau mengedit post lewat admin
+
+1. Buka `http://localhost:3000/keystatic`, lalu pilih **Posts → Create**
+2. Isi judul, kategori, warna aksen, dan rasio slide. Upload cover, lalu tambahkan slide (wajib isi alt text)
+3. Simpan. Keystatic akan menulis:
+   - `content/posts/<slug>.yaml`: data post
+   - `public/posts/<slug>/...`: gambar
+4. Commit dan push. Vercel akan otomatis build ulang
+
+Tips gambar: export JPG/PNG sekitar 1080px lebar (4:5 = 1080×1350). `next/image` akan mengubahnya ke AVIF/WebP dengan ukuran yang pas untuk tiap layar.
+
+## Panel admin di production (opsional)
+
+Secara default Keystatic memakai mode `local`, yang hanya berfungsi saat `npm run dev`. Supaya bisa edit langsung dari website yang sudah online:
+
+1. Push repo ke GitHub, lalu set env `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO=username/repo` di Vercel
+2. Buka `/keystatic` di production dan ikuti wizard pembuatan GitHub App. Wizard akan memberi `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, dan `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`. Masukkan semuanya ke env Vercel
+3. Setiap kali kamu menyimpan di admin, perubahan menjadi commit dan Vercel akan redeploy
+
+Set juga `NEXT_PUBLIC_SITE_URL=https://domain-kamu.com` supaya link OG/share benar.
+
+## Struktur
+
+```
+keystatic.config.ts      skema konten (posts + profil)
+content/                 data YAML
+public/posts/<slug>/     gambar slide
+src/lib/content.ts       pembaca konten (server, di-cache dengan "use cache")
+src/components/feed/     Feed, FeedPost, SlideCarousel, ActionRail, CaptionSheet
+src/components/home/     ProfileHeader, PostGrid
+src/components/ui/       BrutalButton, Sticker, CategoryTabs, Marquee, header/footer
+src/app/globals.css      design token (warna, shadow, radius)
+```
+
+## Catatan desain
+
+- Warna dan shadow didefinisikan di `@theme` pada `globals.css`. Shadow dibuat tanpa blur supaya ringan
+- Teks di atas `blue` memakai warna putih karena teks ink tidak lolos kontras 4.5:1
+- Like disimpan di `localStorage` pengunjung, jadi tidak butuh backend
+- Animasi otomatis dikurangi kalau pengunjung mengaktifkan *reduce motion*

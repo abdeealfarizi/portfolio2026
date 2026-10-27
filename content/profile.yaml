@@ -1,0 +1,21 @@
+name: Abdee Alfarizi
+handle: abdee
+role: Graphic designer & part-time coder
+avatar: /profile/avatar.jpg
+bio: "Kadang ngoding, kadang ngedesain, tapi selalu ngejar visual yang bikin orang berhenti scroll. Dari brand identity, carousel, foto, sampai website."
+location: ""
+email: abdeerajaalfarizi@gmail.com
+available: true
+skills:
+  - "Brand Identity"
+  - "Logo Design"
+  - "Carousel Design"
+  - "Layout & Typography"
+  - "Social Media Design"
+  - "Web (Next.js)"
+  - "Fotografi"
+socials:
+  - platform: tiktok
+    url: https://www.tiktok.com/@kreativa.dev
+  - platform: github
+    url: https://github.com/abdeealfarizi

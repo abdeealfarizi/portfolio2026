@@ -1,0 +1,25 @@
+title: "Project Open Source Gacor"
+category: design
+date: 2026-09-12
+featured: false
+source: "https://www.tiktok.com/@kreativa.dev/photo/7684486176111119634"
+accent: pink
+ratio: "4/5"
+cover: /posts/konten-7/cover.jpg
+slides:
+  - image: /posts/konten-7/slide-1.jpg
+    alt: "Rekomendasi project open source gacor"
+  - image: /posts/konten-7/slide-2.jpg
+    alt: "Spotube: streaming musik ala Spotify, gratis tanpa iklan"
+  - image: /posts/konten-7/slide-3.jpg
+    alt: "RustDesk: remote desktop gratis dan open source"
+  - image: /posts/konten-7/slide-4.jpg
+    alt: "Brave: browser Chromium yang blokir iklan dan tracker"
+  - image: /posts/konten-7/slide-5.jpg
+    alt: "Ada yang lebih gacor? Tulis di komen"
+caption: "Tiga project open source yang bisa gantiin aplikasi berbayar: streaming musik, remote desktop, sampai browser tanpa iklan.\nSpotube, RustDesk, Brave"
+tags:
+  - "opensource"
+  - "github"
+  - "gratis"
+stack: []

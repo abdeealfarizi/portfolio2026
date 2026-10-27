@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw source files (originals can be 15MB each); the optimized copies live in public/posts
+/bahan/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
