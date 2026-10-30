@@ -3,6 +3,7 @@
 import * as m from "motion/react-m";
 import type { Category, Post } from "@/lib/types";
 import { accentBg, categories, categoryMeta } from "@/lib/theme";
+import { useI18n } from "@/i18n/provider";
 
 export type Filter = "all" | Category;
 
@@ -20,17 +21,18 @@ type Props = {
   className?: string;
 };
 
-/** "Semua" plus one tab per category that has posts; empty categories stay hidden. */
+/** "All" plus one tab per category that has posts; empty categories stay hidden. */
 export function CategoryTabs({ posts, value, onChange, showCounts = false, id, className = "" }: Props) {
+  const { t } = useI18n();
   const tabs: { value: Filter; label: string; count: number }[] = [
-    { value: "all", label: "Semua", count: posts.length },
+    { value: "all", label: t.common.all, count: posts.length },
     ...categories
-      .map((c) => ({ value: c, label: categoryMeta[c].label, count: posts.filter((p) => p.category === c).length }))
-      .filter((t) => t.count > 0),
+      .map((c) => ({ value: c, label: t.categories[c], count: posts.filter((p) => p.category === c).length }))
+      .filter((tab) => tab.count > 0),
   ];
 
   return (
-    <div role="tablist" aria-label="Filter kategori" className={`flex gap-2 overflow-x-auto scrollbar-none p-1 ${className}`}>
+    <div role="tablist" aria-label={t.a11y.filterCategory} className={`flex gap-2 overflow-x-auto scrollbar-none p-1 ${className}`}>
       {tabs.map((tab) => {
         const active = tab.value === value;
         const pill = tab.value === "all" ? "bg-ink" : accentBg[categoryMeta[tab.value].accent];

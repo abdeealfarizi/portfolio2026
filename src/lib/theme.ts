@@ -20,25 +20,16 @@ export const accentText: Record<Accent, string> = {
   purple: "text-ink",
 };
 
-// Order here is the tab order.
-export const categoryMeta: Record<Category, { label: string; accent: Accent }> = {
-  design: { label: "Design", accent: "orange" },
-  fotografi: { label: "Fotografi", accent: "yellow" },
-  code: { label: "Code", accent: "lime" },
+// Order here is the tab order. Labels live in the i18n dictionaries.
+export const categoryMeta: Record<Category, { accent: Accent }> = {
+  design: { accent: "orange" },
+  fotografi: { accent: "yellow" },
+  code: { accent: "lime" },
 };
 
 export const categories = Object.keys(categoryMeta) as Category[];
 
-/** 1234567 → "1,2 jt", 12300 → "12,3 rb" */
-export function formatViews(n: number) {
-  return new Intl.NumberFormat("id-ID", { notation: "compact", maximumFractionDigits: 1 }).format(n);
-}
-
 export function ratioParts(ratio: string): [number, number] {
   const [w, h] = ratio.split("/").map(Number);
   return w > 0 && h > 0 ? [w, h] : [4, 5];
-}
-
-export function formatDate(date: string) {
-  return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "short", year: "numeric" }).format(new Date(date));
 }

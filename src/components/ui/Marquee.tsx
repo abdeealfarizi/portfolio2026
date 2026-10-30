@@ -1,7 +1,7 @@
 import { StarFour } from "@phosphor-icons/react/ssr";
 
 /** Infinite skill ticker. Pure CSS transform animation, stopped by reduced-motion. */
-export function Marquee({ items }: { items: string[] }) {
+export function Marquee({ items, label }: { items: string[]; label: string }) {
   const row = (hidden: boolean) => (
     <ul className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
       {items.map((item) => (
@@ -14,7 +14,7 @@ export function Marquee({ items }: { items: string[] }) {
   );
 
   return (
-    <div className="overflow-hidden border-y-[3px] border-ink bg-yellow py-4" role="region" aria-label="Skills">
+    <div className="overflow-hidden border-y-[3px] border-ink bg-yellow py-4" role="region" aria-label={label}>
       <div className="flex w-max animate-marquee">
         {row(false)}
         {row(true)}

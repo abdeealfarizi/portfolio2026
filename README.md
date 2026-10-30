@@ -9,10 +9,31 @@ npm install
 npm run dev
 ```
 
-- `http://localhost:3000`: beranda (profil + grid)
-- `/feed`: feed vertikal (`/feed?post=<slug>&cat=design` untuk deep link)
-- `/p/<slug>`: halaman satu post (untuk dibagikan)
-- `/keystatic`: panel admin untuk menambah atau mengedit post
+- `http://localhost:3000`: otomatis diarahkan ke `/id` atau `/en` (lihat bagian Bahasa)
+- `/id` dan `/en`: beranda (profil + grid)
+- `/id/feed`: feed vertikal (`/id/feed?post=<slug>&cat=design` untuk deep link)
+- `/id/p/<slug>`: halaman satu post (untuk dibagikan)
+- `/keystatic`: panel admin untuk menambah atau mengedit post (hanya saat `npm run dev`)
+
+## Bahasa (Indonesia & English)
+
+Website ini punya dua bahasa, dengan alamat terpisah: `/id/...` dan `/en/...`. Bahasa dipilih dengan urutan:
+
+1. **Pilihan manual**: tombol `ID | EN` di header. Pilihan disimpan di cookie `locale` selama setahun
+2. **Bahasa browser pengunjung** (header `Accept-Language`): Indonesia → `/id`, Inggris → `/en`, bahasa lain → `/en`
+3. Kalau browser tidak mengirim bahasa apa pun, dipakai Indonesia
+
+Logikanya ada di [src/proxy.ts](src/proxy.ts). Karena tiap bahasa punya URL sendiri, link yang dibagikan selalu terbuka dalam bahasa yang sama, dan Google tahu keduanya adalah halaman yang sama (tag `hreflang` sudah dipasang).
+
+- **Teks antarmuka** (tombol, label, judul bagian) ada di `src/i18n/dictionaries/id.ts` dan `en.ts`. Kalau menambah teks baru, isi di kedua file; TypeScript akan menolak build kalau ada yang ketinggalan
+- **Isi konten** (judul, caption, alt text, bio, skill) punya kolom Indonesia dan English di `/keystatic`. Kolom English boleh kosong: pengunjung berbahasa Inggris akan melihat versi Indonesia
+- Gambar carousel TikTok tetap berbahasa Indonesia karena itu hasil desain aslinya
+
+## CV
+
+File CV ada di `public/cv/`. Tombol **Download CV** memberikan CV yang sesuai bahasa halaman: `/id` mengunduh versi Indonesia, `/en` versi Inggris. Di halaman About ada juga link ke versi bahasa lainnya.
+
+Untuk mengganti CV, timpa file dengan nama yang sama di `public/cv/`. Kalau namanya berubah, sesuaikan `cvFile` di [src/i18n/config.ts](src/i18n/config.ts).
 
 ## Menambah post dari folder `bahan/` (cara cepat)
 
@@ -38,14 +59,14 @@ Supaya views dan link TikTok ikut ter-import, tambahkan `info.json` di folder ko
 { "views": 125000, "source": "https://www.tiktok.com/@kreativa.dev/photo/123", "featured": true }
 ```
 
-Field lain yang bisa dipakai: `title`, `caption`, `date`, `tags`, `stack`, `accent`, dan `ratio`. Untuk satu foto, pakai `<nama-foto>.json` di sebelah fotonya. Post diurutkan: yang di-pin dulu, lalu views terbanyak, lalu yang terbaru.
+Field lain yang bisa dipakai: `title`, `caption`, `date`, `tags`, `stack`, `accent`, dan `ratio`. Post hasil import belum punya terjemahan Inggris; isi lewat `/keystatic` (kolom English). Untuk satu foto, pakai `<nama-foto>.json` di sebelah fotonya. Post diurutkan: yang di-pin dulu, lalu views terbanyak, lalu yang terbaru.
 
 Folder `bahan/` tidak ikut di-commit (ada di `.gitignore`). Yang masuk repo hanya versi teroptimasi di `public/posts/`.
 
 ## Menambah atau mengedit post lewat admin
 
 1. Buka `http://localhost:3000/keystatic`, lalu pilih **Posts → Create**
-2. Isi judul, kategori, warna aksen, dan rasio slide. Upload cover, lalu tambahkan slide (wajib isi alt text)
+2. Isi judul, kategori, warna aksen, dan rasio slide. Upload cover, lalu tambahkan slide (wajib isi alt text). Isi juga kolom **English** (judul, caption, alt text) supaya pengunjung berbahasa Inggris melihat teks yang sesuai
 3. Simpan. Keystatic akan menulis:
    - `content/posts/<slug>.yaml`: data post
    - `public/posts/<slug>/...`: gambar
@@ -66,19 +87,24 @@ Set juga `NEXT_PUBLIC_SITE_URL=https://domain-kamu.com` supaya link OG/share ben
 ## Struktur
 
 ```
-keystatic.config.ts      skema konten (posts + profil)
+keystatic.config.ts      skema konten (posts + profil, kolom Indonesia & English)
 content/                 data YAML
 public/posts/<slug>/     gambar slide
-src/lib/content.ts       pembaca konten (server, di-cache dengan "use cache")
+public/cv/               file CV (ID dan EN)
+src/proxy.ts             memilih bahasa dan mengarahkan ke /id atau /en
+src/i18n/                config bahasa, kamus teks (dictionaries/), provider untuk client component
+src/lib/content.ts       pembaca konten (server, di-cache dengan "use cache", satu cache per bahasa)
+src/app/[lang]/          semua halaman (beranda, feed, about, post), satu salinan per bahasa
 src/components/feed/     Feed, FeedPost, SlideCarousel, ActionRail, CaptionSheet
 src/components/home/     ProfileHeader, PostGrid
-src/components/ui/       BrutalButton, Sticker, CategoryTabs, Marquee, header/footer
+src/components/ui/       BrutalButton, Sticker, CategoryTabs, Marquee, LanguageToggle, header/footer
 src/app/globals.css      design token (warna, shadow, radius)
 ```
 
 ## Catatan desain
 
 - Warna dan shadow didefinisikan di `@theme` pada `globals.css`. Shadow dibuat tanpa blur supaya ringan
+- Latar titik-titik (`bg-dots-soft`) hanya dipakai di section Selected Work supaya nama dan deskripsi di hero tetap terbaca
 - Teks di atas `blue` memakai warna putih karena teks ink tidak lolos kontras 4.5:1
 - Like disimpan di `localStorage` pengunjung, jadi tidak butuh backend
 - Animasi otomatis dikurangi kalau pengunjung mengaktifkan *reduce motion*

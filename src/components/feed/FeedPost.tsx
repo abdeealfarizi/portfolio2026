@@ -3,7 +3,8 @@
 import { memo } from "react";
 import type { Post } from "@/lib/types";
 import { Play } from "@phosphor-icons/react";
-import { accentBg, accentText, categoryMeta, formatViews, ratioParts } from "@/lib/theme";
+import { accentBg, accentText, ratioParts } from "@/lib/theme";
+import { useI18n } from "@/i18n/provider";
 import { Sticker } from "@/components/ui/Sticker";
 import { SlideCarousel } from "./SlideCarousel";
 import { ActionRail } from "./ActionRail";
@@ -20,8 +21,8 @@ type Props = {
 };
 
 export const FeedPost = memo(function FeedPost({ post, index, near, liked, onLike, onShare, onInfo }: Props) {
+  const { t, views } = useI18n();
   const [w, h] = ratioParts(post.ratio);
-  const cat = categoryMeta[post.category];
 
   return (
     <article
@@ -56,12 +57,12 @@ export const FeedPost = memo(function FeedPost({ post, index, near, liked, onLik
             <div className="min-w-0">
               <div className="mb-1.5 flex items-center gap-2">
                 <Sticker color="paper" tilt={-2} className="text-xs">
-                  {cat.label}
+                  {t.categories[post.category]}
                 </Sticker>
                 {post.views !== null && (
                   <span className="flex items-center gap-1 rounded-full bg-ink px-2 py-0.5 text-xs font-bold text-paper">
                     <Play weight="fill" className="size-3" aria-hidden />
-                    {formatViews(post.views)} views
+                    {views(post.views)} {t.common.views}
                   </span>
                 )}
               </div>
@@ -71,7 +72,7 @@ export const FeedPost = memo(function FeedPost({ post, index, near, liked, onLik
           {post.caption && (
             <button type="button" onClick={() => onInfo(post)} className="text-left">
               <span className="line-clamp-2">{post.caption}</span>
-              <span className="font-bold underline underline-offset-2">selengkapnya</span>
+              <span className="font-bold underline underline-offset-2">{t.feed.readMore}</span>
             </button>
           )}
           <div className="text-ink">

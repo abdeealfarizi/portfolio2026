@@ -3,6 +3,7 @@
 import * as m from "motion/react-m";
 import { ArrowSquareOut, GithubLogo, Heart, Info, InstagramLogo, ShareFat, TiktokLogo } from "@phosphor-icons/react";
 import type { Post } from "@/lib/types";
+import { useI18n } from "@/i18n/provider";
 
 type Props = {
   post: Post;
@@ -14,9 +15,10 @@ type Props = {
 };
 
 export function ActionRail({ post, liked, onLike, onShare, onInfo, direction }: Props) {
+  const { t } = useI18n();
   return (
     <div className={`flex gap-3 ${direction === "col" ? "flex-col" : "flex-row flex-wrap"}`}>
-      <RailButton label="Suka" pressed={liked} onClick={onLike} active={liked}>
+      <RailButton label={t.common.like} pressed={liked} onClick={onLike} active={liked}>
         <m.span key={String(liked)} initial={liked ? { scale: 0.4 } : false} animate={{ scale: [0.4, 1.35, 1] }}
           transition={{ type: "tween", duration: 0.35, ease: "easeOut" }}
           className="grid"
@@ -24,16 +26,16 @@ export function ActionRail({ post, liked, onLike, onShare, onInfo, direction }: 
           <Heart weight={liked ? "fill" : "bold"} className={`size-6 ${liked ? "text-pink" : ""}`} aria-hidden />
         </m.span>
       </RailButton>
-      <RailButton label="Bagikan" onClick={onShare}>
+      <RailButton label={t.common.share} onClick={onShare}>
         <ShareFat weight="bold" className="size-6" aria-hidden />
       </RailButton>
       {onInfo && (
-        <RailButton label="Detail" onClick={onInfo}>
+        <RailButton label={t.common.details} onClick={onInfo}>
           <Info weight="bold" className="size-6" aria-hidden />
         </RailButton>
       )}
       {post.source && (
-        <RailLink label={sourceLabel(post.source)} href={post.source}>
+        <RailLink label={sourceLabel(post.source, t.common.original)} href={post.source}>
           {/tiktok\.com/.test(post.source) ? (
             <TiktokLogo weight="bold" className="size-6" aria-hidden />
           ) : /instagram\.com/.test(post.source) ? (
@@ -44,12 +46,12 @@ export function ActionRail({ post, liked, onLike, onShare, onInfo, direction }: 
         </RailLink>
       )}
       {post.links.live && (
-        <RailLink label="Live" href={post.links.live}>
+        <RailLink label={t.common.live} href={post.links.live}>
           <ArrowSquareOut weight="bold" className="size-6" aria-hidden />
         </RailLink>
       )}
       {post.links.repo && (
-        <RailLink label="Repo" href={post.links.repo}>
+        <RailLink label={t.common.repo} href={post.links.repo}>
           <GithubLogo weight="bold" className="size-6" aria-hidden />
         </RailLink>
       )}
@@ -57,10 +59,10 @@ export function ActionRail({ post, liked, onLike, onShare, onInfo, direction }: 
   );
 }
 
-function sourceLabel(url: string) {
+function sourceLabel(url: string, fallback: string) {
   if (/tiktok\.com/.test(url)) return "TikTok";
   if (/instagram\.com/.test(url)) return "Instagram";
-  return "Asli";
+  return fallback;
 }
 
 const circle =

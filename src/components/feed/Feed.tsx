@@ -6,7 +6,9 @@ import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { ArrowLeft } from "@phosphor-icons/react";
 import type { Post } from "@/lib/types";
+import { useI18n } from "@/i18n/provider";
 import { CategoryTabs, isCategory, type Filter } from "@/components/ui/CategoryTabs";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { FeedPost } from "./FeedPost";
 import { CaptionSheet } from "./CaptionSheet";
 
@@ -21,6 +23,7 @@ function readLikes(): Set<string> {
 }
 
 export function Feed({ posts }: { posts: Post[] }) {
+  const { t, href } = useI18n();
   const container = useRef<HTMLDivElement>(null);
   const pendingSlug = useRef<string | null>(null);
   const [ready, setReady] = useState(false);
@@ -94,13 +97,13 @@ export function Feed({ posts }: { posts: Post[] }) {
     if (!post || !ready) return;
     const params = new URLSearchParams({ post: post.slug });
     if (filter !== "all") params.set("cat", filter);
-    window.history.replaceState(null, "", `/feed?${params}`);
-  }, [active, visible, filter, ready]);
+    window.history.replaceState(null, "", href(`/feed?${params}`));
+  }, [active, visible, filter, ready, href]);
 
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 2500);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(timer);
   }, [toast]);
 
   const onLike = useCallback((slug: string, force?: boolean) => {
@@ -115,19 +118,23 @@ export function Feed({ posts }: { posts: Post[] }) {
     });
   }, []);
 
-  const onShare = useCallback(async (post: Post) => {
-    const url = `${window.location.origin}/p/${post.slug}`;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: post.title, text: post.caption, url });
-        return;
+  const onShare = useCallback(
+    async (post: Post) => {
+      // The shared link opens in the language the visitor is reading.
+      const url = `${window.location.origin}${href(`/p/${post.slug}`)}`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: post.title, text: post.caption, url });
+          return;
+        }
+        await navigator.clipboard.writeText(url);
+        setToast(t.feed.linkCopied);
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") setToast(t.feed.shareFailed);
       }
-      await navigator.clipboard.writeText(url);
-      setToast("Link disalin!");
-    } catch (err) {
-      if ((err as Error).name !== "AbortError") setToast("Gagal membagikan, coba lagi");
-    }
-  }, []);
+    },
+    [href, t],
+  );
 
   const onInfo = useCallback((post: Post) => setSheetPost(post), []);
   const closeSheet = useCallback(() => setSheetPost(null), []);
@@ -137,8 +144,8 @@ export function Feed({ posts }: { posts: Post[] }) {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 pt-3">
         <div className="pointer-events-auto mx-auto flex max-w-6xl items-center gap-3">
           <Link
-            href="/"
-            aria-label="Kembali ke beranda"
+            href={href("/")}
+            aria-label={t.a11y.backHome}
             className="brutal-press grid size-11 shrink-0 place-items-center rounded-full border-[2.5px] border-ink bg-paper shadow-brutal-sm"
           >
             <ArrowLeft weight="bold" className="size-5" aria-hidden />
@@ -147,6 +154,7 @@ export function Feed({ posts }: { posts: Post[] }) {
           <span className="hidden shrink-0 rounded-full border-[2.5px] border-ink bg-paper px-3 py-1.5 font-bold tabular-nums sm:block">
             {visible.length ? active + 1 : 0}/{visible.length}
           </span>
+          <LanguageToggle />
         </div>
       </header>
 
@@ -154,7 +162,7 @@ export function Feed({ posts }: { posts: Post[] }) {
         id="main"
         ref={container}
         className="relative h-dvh snap-y snap-mandatory overflow-y-auto overscroll-y-contain scrollbar-none"
-        aria-label="Feed karya"
+        aria-label={t.a11y.workFeed}
       >
         {visible.map((post, i) => (
           <FeedPost
@@ -170,7 +178,7 @@ export function Feed({ posts }: { posts: Post[] }) {
         ))}
         {visible.length === 0 && (
           <div className="grid h-dvh place-items-center bg-paper px-4 text-center">
-            <p className="font-display text-xl font-black uppercase">Belum ada post di kategori ini</p>
+            <p className="font-display text-xl font-black uppercase">{t.feed.empty}</p>
           </div>
         )}
       </div>

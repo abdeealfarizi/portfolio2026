@@ -13,7 +13,7 @@ export function Sticker({ color = "yellow", tilt = 0, className = "", children }
   const colors = color === "ink" ? "bg-ink text-paper" : color === "paper" ? "bg-paper text-ink" : `${accentBg[color]} ${accentText[color]}`;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border-[2.5px] border-ink px-3 py-1 text-sm font-bold leading-none shadow-brutal-sm ${colors} ${className}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border-[2.5px] border-ink px-3 py-1 text-sm font-bold leading-none shadow-brutal-sm ${colors} ${className}`}
       style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
     >
       {children}

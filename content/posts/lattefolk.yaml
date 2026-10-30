@@ -1,4 +1,5 @@
 title: "Lattefolk"
+titleEn: "Lattefolk"
 category: design
 date: 2025-05-08
 featured: true
@@ -8,21 +9,30 @@ cover: /posts/lattefolk/cover.jpg
 slides:
   - image: /posts/lattefolk/slide-1.jpg
     alt: "Logo Lattefolk cokelat di atas latar putih"
+    altEn: "Lattefolk logo in brown on a white background"
   - image: /posts/lattefolk/slide-2.jpg
     alt: "Logo Lattefolk putih di atas latar cokelat"
+    altEn: "Lattefolk logo in white on a brown background"
   - image: /posts/lattefolk/slide-6.jpg
     alt: "Tagline Sip, Share, Stay Folkin. di latar putih"
+    altEn: "Tagline \"Sip, Share, Stay Folkin.\" on white"
   - image: /posts/lattefolk/slide-7.jpg
     alt: "Tagline Sip, Share, Stay Folkin. di latar cokelat"
+    altEn: "Tagline \"Sip, Share, Stay Folkin.\" on brown"
   - image: /posts/lattefolk/slide-3.jpg
     alt: "Lattefolk Signature dalam cup plastik"
+    altEn: "Lattefolk Signature in a plastic cup"
   - image: /posts/lattefolk/slide-4.jpg
     alt: "Kemasan biji kopi Beansfolk"
+    altEn: "Beansfolk coffee bean packaging"
   - image: /posts/lattefolk/slide-5.jpg
     alt: "Tumbler Folk's Tumbler"
+    altEn: "Folk's Tumbler"
   - image: /posts/lattefolk/slide-8.jpg
     alt: "Kaos karyawan Lattefolk tampak depan dan belakang"
+    altEn: "Lattefolk staff T-shirt, front and back"
 caption: "Identitas visual Lattefolk: logo, tagline \"Sip, Share, Stay Folkin.\", lalu penerapannya di cup, kemasan biji kopi, tumbler, sampai kaos karyawan."
+captionEn: "Visual identity for Lattefolk: logo, the tagline \"Sip, Share, Stay Folkin.\", and how it applies to cups, coffee bean packaging, tumblers, and staff T-shirts."
 tags:
   - "branding"
   - "logo"

@@ -82,6 +82,12 @@
     background-image: radial-gradient(var(--color-ink) 1.2px, transparent 1.2px);
     background-size: 22px 22px;
   }
+
+  /* Softer dots for a white backdrop behind headings, filters and cards. */
+  .bg-dots-soft {
+    background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 30%, transparent) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
 }
 
 @utility scrollbar-none {

@@ -1,4 +1,5 @@
 title: "Pulang Lewat Tol"
+titleEn: "Homebound on the Toll Road"
 category: fotografi
 date: 2021-01-29
 featured: false
@@ -8,6 +9,7 @@ cover: /posts/foto-489211-original/cover.jpg
 slides:
   - image: /posts/foto-489211-original/slide-1.jpg
     alt: "Mobil-mobil melaju di jalan tol saat langit senja"
+    altEn: "Cars driving on a toll road under a dusk sky"
 caption: ""
 tags: []
 stack: []

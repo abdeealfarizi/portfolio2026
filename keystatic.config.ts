@@ -24,7 +24,8 @@ export default config({
       format: "yaml",
       columns: ["title", "category", "date"],
       schema: {
-        title: fields.slug({ name: { label: "Judul" } }),
+        title: fields.slug({ name: { label: "Judul (Indonesia)" } }),
+        titleEn: fields.text({ label: "Title (English)", description: "Kosongkan untuk memakai judul Indonesia." }),
         category: fields.select({
           label: "Kategori",
           options: [
@@ -65,7 +66,8 @@ export default config({
               publicPath: "/posts/",
               validation: { isRequired: true },
             }),
-            alt: fields.text({ label: "Alt text (deskripsi gambar)", validation: { isRequired: true } }),
+            alt: fields.text({ label: "Alt text (Indonesia)", validation: { isRequired: true } }),
+            altEn: fields.text({ label: "Alt text (English)", description: "Kosongkan untuk memakai versi Indonesia." }),
             caption: fields.text({ label: "Caption slide (opsional)" }),
           }),
           {
@@ -74,7 +76,12 @@ export default config({
             validation: { length: { min: 1 } },
           },
         ),
-        caption: fields.text({ label: "Caption", multiline: true }),
+        caption: fields.text({ label: "Caption (Indonesia)", multiline: true }),
+        captionEn: fields.text({
+          label: "Caption (English)",
+          multiline: true,
+          description: "Kosongkan untuk memakai caption Indonesia.",
+        }),
         tags: fields.array(fields.text({ label: "Tag" }), {
           label: "Tags",
           itemLabel: (props) => props.value,
@@ -101,14 +108,21 @@ export default config({
       schema: {
         name: fields.text({ label: "Nama", validation: { isRequired: true } }),
         handle: fields.text({ label: "Nama pendek (logo di header)" }),
-        role: fields.text({ label: "Role singkat" }),
+        role: fields.text({ label: "Role singkat (Indonesia)" }),
+        roleEn: fields.text({ label: "Short role (English)" }),
         avatar: fields.image({ label: "Avatar", directory: "public/profile", publicPath: "/profile/" }),
-        bio: fields.text({ label: "Bio", multiline: true }),
+        bio: fields.text({ label: "Bio (Indonesia)", multiline: true }),
+        bioEn: fields.text({ label: "Bio (English)", multiline: true }),
         location: fields.text({ label: "Lokasi" }),
         email: fields.text({ label: "Email" }),
         available: fields.checkbox({ label: "Open for work", defaultValue: true }),
         skills: fields.array(fields.text({ label: "Skill" }), {
-          label: "Skills",
+          label: "Skills (Indonesia)",
+          itemLabel: (props) => props.value,
+        }),
+        skillsEn: fields.array(fields.text({ label: "Skill" }), {
+          label: "Skills (English)",
+          description: "Kosongkan untuk memakai daftar Indonesia.",
           itemLabel: (props) => props.value,
         }),
         socials: fields.array(

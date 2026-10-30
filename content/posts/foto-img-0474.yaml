@@ -1,4 +1,5 @@
 title: "Macet Malam"
+titleEn: "Night Traffic"
 category: fotografi
 date: 2026-07-30
 featured: false
@@ -8,6 +9,7 @@ cover: /posts/foto-img-0474/cover.jpg
 slides:
   - image: /posts/foto-img-0474/slide-1.jpg
     alt: "Pengendara motor terjepit di antara bus dan truk saat malam"
+    altEn: "A motorcyclist squeezed between a bus and a truck at night"
 caption: ""
 tags: []
 stack: []

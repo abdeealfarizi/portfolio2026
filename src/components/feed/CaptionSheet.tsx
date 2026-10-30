@@ -5,9 +5,11 @@ import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { X } from "@phosphor-icons/react";
 import type { Post } from "@/lib/types";
+import { useI18n } from "@/i18n/provider";
 import { PostDetails } from "./PostDetails";
 
 export function CaptionSheet({ post, onClose }: { post: Post | null; onClose: () => void }) {
+  const { t } = useI18n();
   const closeBtn = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export function CaptionSheet({ post, onClose }: { post: Post | null; onClose: ()
               ref={closeBtn}
               type="button"
               onClick={onClose}
-              aria-label="Tutup detail"
+              aria-label={t.a11y.closeDetails}
               className="brutal-press absolute right-4 top-4 grid size-11 place-items-center rounded-full border-[2.5px] border-ink bg-yellow shadow-brutal-sm"
             >
               <X weight="bold" className="size-5" aria-hidden />

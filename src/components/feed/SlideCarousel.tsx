@@ -6,6 +6,7 @@ import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { CaretLeft, CaretRight, Heart } from "@phosphor-icons/react";
 import type { Slide } from "@/lib/types";
+import { useI18n } from "@/i18n/provider";
 
 type Props = {
   slides: Slide[];
@@ -23,6 +24,7 @@ type Props = {
  * animates the progress bar and the double-tap heart.
  */
 export function SlideCarousel({ slides, title, near, eager = false, sizes, onDoubleTap }: Props) {
+  const { t, fmt } = useI18n();
   const scroller = useRef<HTMLDivElement>(null);
   const frame = useRef(0);
   const [index, setIndex] = useState(0);
@@ -62,7 +64,7 @@ export function SlideCarousel({ slides, title, near, eager = false, sizes, onDou
   };
 
   return (
-    <div className="group/carousel relative h-full w-full" aria-roledescription="carousel" aria-label={title}>
+    <div className="group/carousel relative h-full w-full" aria-roledescription={t.a11y.carousel} aria-label={title}>
       <div
         ref={scroller}
         onScroll={onScroll}
@@ -75,8 +77,8 @@ export function SlideCarousel({ slides, title, near, eager = false, sizes, onDou
           <div
             key={slide.image + i}
             role="group"
-            aria-roledescription="slide"
-            aria-label={`${i + 1} dari ${slides.length}`}
+            aria-roledescription={t.a11y.slide}
+            aria-label={fmt(t.a11y.slideOf, { n: i + 1, total: slides.length })}
             className="relative h-full w-full shrink-0 snap-center snap-always"
           >
             {near && (
@@ -116,8 +118,8 @@ export function SlideCarousel({ slides, title, near, eager = false, sizes, onDou
             {index + 1}/{slides.length}
           </span>
 
-          <ArrowButton side="left" disabled={index === 0} onClick={() => goTo(index - 1)} />
-          <ArrowButton side="right" disabled={index === slides.length - 1} onClick={() => goTo(index + 1)} />
+          <ArrowButton side="left" label={t.a11y.prevSlide} disabled={index === 0} onClick={() => goTo(index - 1)} />
+          <ArrowButton side="right" label={t.a11y.nextSlide} disabled={index === slides.length - 1} onClick={() => goTo(index + 1)} />
         </>
       )}
 
@@ -140,14 +142,24 @@ export function SlideCarousel({ slides, title, near, eager = false, sizes, onDou
   );
 }
 
-function ArrowButton({ side, disabled, onClick }: { side: "left" | "right"; disabled: boolean; onClick: () => void }) {
+function ArrowButton({
+  side,
+  label,
+  disabled,
+  onClick,
+}: {
+  side: "left" | "right";
+  label: string;
+  disabled: boolean;
+  onClick: () => void;
+}) {
   const Icon = side === "left" ? CaretLeft : CaretRight;
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      aria-label={side === "left" ? "Slide sebelumnya" : "Slide berikutnya"}
+      aria-label={label}
       className={`brutal-press absolute top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border-[2.5px] border-ink bg-paper shadow-brutal-sm transition-opacity disabled:pointer-events-none disabled:opacity-0 md:grid md:opacity-0 md:group-hover/carousel:opacity-100 md:focus-visible:opacity-100 ${
         side === "left" ? "left-3" : "right-3"
       }`}

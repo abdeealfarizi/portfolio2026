@@ -1,4 +1,5 @@
 title: "Bunga & Pelangi"
+titleEn: "Flowers & Rainbow"
 category: fotografi
 date: 2026-08-03
 featured: false
@@ -8,6 +9,7 @@ cover: /posts/foto-img-0509/cover.jpg
 slides:
   - image: /posts/foto-img-0509/slide-1.jpg
     alt: "Rangkaian bunga di dekat jendela dengan pantulan cahaya pelangi"
+    altEn: "A flower arrangement by a window with a rainbow light reflection"
 caption: ""
 tags: []
 stack: []

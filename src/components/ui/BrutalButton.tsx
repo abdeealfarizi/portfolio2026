@@ -23,9 +23,10 @@ export function BrutalButton({ color = "yellow", size = "md", className = "", ch
 
   if ("href" in rest && rest.href !== undefined) {
     const { href, external, ...anchor } = rest;
-    if (external) {
+    // New tabs and file downloads need a plain <a>; <Link> is only for in-app navigation.
+    if (external || anchor.download !== undefined) {
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={cls} {...anchor}>
+        <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={cls} {...anchor}>
           {children}
         </a>
       );
